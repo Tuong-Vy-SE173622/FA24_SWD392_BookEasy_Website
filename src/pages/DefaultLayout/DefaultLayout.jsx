@@ -6,6 +6,7 @@ import { BsPeople } from "react-icons/bs";
 import { FaBell, FaRegBuilding, FaRegStar } from "react-icons/fa";
 import { IoSearch, IoSettingsOutline } from "react-icons/io5";
 import { Avatar, Badge } from "antd";
+import { HiOutlineUserGroup } from "react-icons/hi";
 // import { IoIosArrowDropdown } from "react-icons/io";
 // import Sidebar from "../../components/SideBar/Sidebar";
 // import { Outlet } from "react-router-dom";
@@ -18,11 +19,16 @@ function DefaultLayout() {
 
   const menuItems = [
     { path: "/admin/dashboard", label: "Dashboard", icon: <RiDashboardFill /> },
-    { path: "/admin/events", label: "Events", icon: <RiCalendarEventFill /> },
     {
       path: "/admin/organization",
       label: "Organizations",
       icon: <FaRegBuilding />,
+    },
+    { path: "/admin/events", label: "Events", icon: <RiCalendarEventFill /> },
+    {
+      path: "/admin/guest-groups",
+      label: "Guest Group",
+      icon: <HiOutlineUserGroup />,
     },
     { path: "/admin/guests", label: "Guest", icon: <BsPeople /> },
     { path: "/admin/staffs", label: "Staff", icon: <FaRegStar /> },

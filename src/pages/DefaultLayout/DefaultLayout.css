@@ -4,6 +4,7 @@
   height: 100vh;
 
   display: flex;
+  /* height: 100vh; */
 }
 .sidebar-wrapper {
   /* background-color: lightblue; */

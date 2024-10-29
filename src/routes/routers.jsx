@@ -8,6 +8,7 @@ import StaffPage from "../pages/Admin/StaffPage/StaffPage";
 import SettingPage from "../pages/Admin/SettingPage/SettingPage";
 import OrganizationPage from "../pages/Admin/OrganizationPage/OrganizationPage";
 import Home from "../pages/Staff/Home/Home";
+import GuestGroupPage from "../pages/Admin/GuestGroupPage/GuestGroupPage";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "guests",
         element: <GuestPage />,
+      },
+      {
+        path: "guest-groups",
+        element: <GuestGroupPage />,
       },
       {
         path: "staffs",
