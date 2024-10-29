@@ -8,7 +8,7 @@
 .sidebar-wrapper {
   /* background-color: lightblue; */
 
-  width: 260px;
+  width: 220px;
   height: 100%;
 
   display: flex;
@@ -83,7 +83,7 @@
 
 .main-wrapper {
   background-color: white;
-  width: calc(100vw - 250px);
+  width: calc(100vw - 220px);
   border-radius: 20px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -100,16 +100,18 @@
   flex-direction: row;
   align-items: center;
   position: relative;
+  justify-content: space-between;
   /* justify-content: space-between; */
 }
 
 .header-title {
   /* background-color: lightcoral; */
-  width: 34%;
+  width: 70%;
   height: 60%;
   font-size: 28px;
   font-weight: 700;
   padding-left: 70px;
+  /* background-color: lightblue; */
 }
 
 .header-search {
@@ -169,11 +171,11 @@
 }
 .notification {
   /* background-color: lightpink; */
-  width: 5%;
+  width: 6%;
   height: 60%;
 
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
 }
 
@@ -183,14 +185,17 @@
 
 .header-account {
   /* background-color: lightskyblue; */
-  flex: 1;
+  width: 15%;
   height: 70%;
   padding-right: 20px;
 
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
+  border: 1px dashed #0080ff;
+  color: #0080ff;
+  margin-right: 15px;
 }
 
 .header-account > .username-acount {
@@ -198,7 +203,7 @@
   margin-left: 5px;
   text-align: center;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
 
   display: flex;
   align-items: center;
@@ -216,9 +221,9 @@
 }
 .main-container {
   /* background-color: lightblue; */
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   width: 100%;
   display: flex;
   justify-content: center;
-  /* height: 200px; */
+  /* padding: 5px 20px; */
 }

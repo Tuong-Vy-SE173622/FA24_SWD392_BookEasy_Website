@@ -1,18 +1,13 @@
 import api from "../config/axios";
 
-export const login = async (email, password) => {
+export const login = async (userName, password) => {
   const loginData = {
-    email: email,
+    userName: userName,
     password: password,
-    twoFactorCode: "string",
-    twoFactorRecoveryCode: "string",
   };
 
   try {
-    const response = await api.post(
-      "/login?useCookies=false&useSessionCookies=false",
-      loginData
-    );
+    const response = await api.post("/api/authenticate/login", loginData);
     return response.data;
   } catch (err) {
     console.error("Error during login: ", err);

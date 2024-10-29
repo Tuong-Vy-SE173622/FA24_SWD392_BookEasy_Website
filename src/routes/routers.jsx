@@ -1,49 +1,59 @@
 import { createBrowserRouter } from "react-router-dom";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import DefaultLayout from "../pages/DefaultLayout/DefaultLayout";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import EventPage from "../pages/EventPage/EventPage";
-import GuestPage from "../pages/GuestPage/GuestPage";
-import StaffPage from "../pages/StaffPage/StaffPage";
-import SettingPage from "../pages/SettingPage/SettingPage";
+import Dashboard from "../pages/Admin/Dashboard/Dashboard";
+import EventPage from "../pages/Admin/EventPage/EventPage";
+import GuestPage from "../pages/Admin/GuestPage/GuestPage";
+import StaffPage from "../pages/Admin/StaffPage/StaffPage";
+import SettingPage from "../pages/Admin/SettingPage/SettingPage";
+import OrganizationPage from "../pages/Admin/OrganizationPage/OrganizationPage";
+import Home from "../pages/Staff/Home/Home";
 
 export const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: <LoginPage />,
   },
   {
-    path: "/",
+    path: "/admin",
     element: (
       <>
         <DefaultLayout />
       </>
     ),
     children: [
+      // {
+      //   index: true,
+      //   element: <Dashboard />,
+      // },
       {
-        index: true,
+        path: "dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "/events",
+        path: "events",
         element: <EventPage />,
       },
       {
-        path: "/guests",
+        path: "guests",
         element: <GuestPage />,
       },
       {
-        path: "/staffs",
+        path: "staffs",
         element: <StaffPage />,
       },
       {
-        path: "/setting",
+        path: "organization",
+        element: <OrganizationPage />,
+      },
+      {
+        path: "setting",
         element: <SettingPage />,
       },
     ],
+  },
+  {
+    path: "user",
+    element: <Home />,
   },
 ]);

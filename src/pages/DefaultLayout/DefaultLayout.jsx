@@ -3,7 +3,7 @@ import "./DefaultLayout.css";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { RiCalendarEventFill, RiDashboardFill } from "react-icons/ri";
 import { BsPeople } from "react-icons/bs";
-import { FaBell, FaRegStar } from "react-icons/fa";
+import { FaBell, FaRegBuilding, FaRegStar } from "react-icons/fa";
 import { IoSearch, IoSettingsOutline } from "react-icons/io5";
 import { Avatar, Badge } from "antd";
 // import { IoIosArrowDropdown } from "react-icons/io";
@@ -14,19 +14,25 @@ import { Avatar, Badge } from "antd";
 function DefaultLayout() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const username = localStorage.getItem("username");
 
   const menuItems = [
-    { path: "/dashboard", label: "Dashboard", icon: <RiDashboardFill /> },
-    { path: "/events", label: "Events", icon: <RiCalendarEventFill /> },
-    { path: "/guests", label: "Guest", icon: <BsPeople /> },
-    { path: "/staffs", label: "Staff", icon: <FaRegStar /> },
-    { path: "/setting", label: "Setting", icon: <IoSettingsOutline /> },
+    { path: "/admin/dashboard", label: "Dashboard", icon: <RiDashboardFill /> },
+    { path: "/admin/events", label: "Events", icon: <RiCalendarEventFill /> },
+    {
+      path: "/admin/organization",
+      label: "Organizations",
+      icon: <FaRegBuilding />,
+    },
+    { path: "/admin/guests", label: "Guest", icon: <BsPeople /> },
+    { path: "/admin/staffs", label: "Staff", icon: <FaRegStar /> },
+    { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
   ];
 
-  // const currentMenuItem = menuItems.find((item) => item.path === pathname);
-  const currentMenuItem = menuItems.find((item) =>
-    pathname === "/" ? item.path === "/dashboard" : item.path === pathname
-  );
+  const currentMenuItem = menuItems.find((item) => item.path === pathname);
+  // const currentMenuItem = menuItems.find((item) =>
+  //   pathname === "/" ? item.path === "/dashboard" : item.path === pathname
+  // );
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("accessToken"); // Kiểm tra xem người dùng có accessToken chưa
@@ -67,27 +73,27 @@ function DefaultLayout() {
             <div className="header-title">
               {currentMenuItem?.label || "Page Not Found"}
             </div>
-            <div className="header-search">
+            {/* <div className="header-search">
               <div className="search">
                 <input type="text" name="" id="" placeholder="Search" />
                 <span className="search-icon">
                   <IoSearch size={"18px"} />
                 </span>
               </div>
-            </div>
-            <div className="notification">
+            </div> */}
+            {/* <div className="notification">
               <Badge count={99}>
                 <FaBell size={28} className="notification-icon" />
               </Badge>
-            </div>
+            </div> */}
             <div className="header-account">
-              <Avatar
+              {/* <Avatar
                 src="https://petnow.com.vn/wp-content/uploads/2023/07/z4512403771355_aed28eee2080f124fa47a5f1c302723a.jpg"
                 alt="avatar"
                 size={45}
-              />
+              /> */}
               <div className="username-acount">
-                Stella Melanie
+                {username}
                 {/* <IoIosArrowDropdown className="icon" /> */}
               </div>
             </div>
