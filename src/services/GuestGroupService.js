@@ -1,7 +1,7 @@
 import api from "../config/axios";
 
-export const getEvents = async () => {
-  const response = await api.get("/api/event", {
+export const getGuestGroups = async () => {
+  const response = await api.get("/api/guestgroup", {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
@@ -9,8 +9,8 @@ export const getEvents = async () => {
   return response.data.$values;
 };
 
-export const createEvent = async (eventData) => {
-  const response = await api.post("/api/event", eventData, {
+export const createGuestGroup = async (guestGroupData) => {
+  const response = await api.post("/api/guestgroup", guestGroupData, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
@@ -18,19 +18,19 @@ export const createEvent = async (eventData) => {
   return response.data;
 };
 
-export const updateEvent = async (eventData) => {
-  const response = await api.put(`/api/event`, eventData, {
+export const deleteGuestGroup = async (id) => {
+  await api.delete(`/api/guestgroup/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
+};
+
+export const updateGuestGroup = async (guestGroupData) => {
+  const response = await api.put(`/api/guestgroup`, guestGroupData, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   });
   return response.data;
-};
-
-export const deleteEvent = async (id) => {
-  await api.delete(`/api/event/${id}`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    },
-  });
 };

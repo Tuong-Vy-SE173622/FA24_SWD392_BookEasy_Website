@@ -6,8 +6,10 @@ import {
   createEvent,
   deleteEvent,
   getEvents,
+  updateEvent,
 } from "../../../services/EventService";
 import { getOrganization } from "../../../services/OrganizationService";
+import moment from "moment/moment";
 
 const { Option } = Select; // Import Select Option
 
@@ -24,7 +26,9 @@ const EventPage = () => {
     setIsModalOpen(true);
     form.setFieldsValue({
       ...record,
-      capacity: record ? record.capacity : 0, // Set default capacity to 0
+      startDate: record ? moment(record.startDate) : null,
+      endDate: record ? moment(record.endDate) : null,
+      capacity: record ? record.capacity : 0,
     });
   };
 
@@ -46,8 +50,14 @@ const EventPage = () => {
     form.validateFields().then(async (values) => {
       try {
         if (editingEvent) {
-          // Cập nhật sự kiện
-          alert("Update Event have error");
+          await updateEvent({ ...editingEvent, ...values });
+          setEvents(
+            events.map((org) =>
+              org.eventID === editingEvent.eventID
+                ? { ...editingEvent, ...values }
+                : org
+            )
+          );
         } else {
           const newEvent = await createEvent(values);
           setEvents([...events, newEvent]);
