@@ -43,7 +43,7 @@ function DefaultLayout() {
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("accessToken"); // Kiểm tra xem người dùng có accessToken chưa
     if (!isAuthenticated) {
-      navigate("/login"); // Nếu không, điều hướng tới trang login
+      navigate("/"); // Nếu không, điều hướng tới trang login
     }
   }, [navigate]);
 

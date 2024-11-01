@@ -87,18 +87,23 @@ const OrganizationPage = () => {
       title: "Actions",
       key: "actions",
       render: (record) => (
-        <>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "nowrap",
+          }}
+        >
           <Button
             icon={<EditOutlined />}
             onClick={() => openModal(record)}
-            style={{ marginRight: 8 }}
+            style={{ marginRight: 5 }}
           />
           <Button
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.organizationID)}
             danger
           />
-        </>
+        </div>
       ),
     },
   ];
@@ -137,9 +142,7 @@ const OrganizationPage = () => {
           pagination={{
             pageSize: pageSize,
           }}
-          style={{
-            width: "95%",
-          }}
+          style={{ width: 1100 }}
           // scroll={{ y: 250 }}
           className="custom-table"
         />

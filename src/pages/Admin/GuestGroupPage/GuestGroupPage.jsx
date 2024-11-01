@@ -179,10 +179,16 @@ const GroupGuestPage = () => {
           </Form.Item>
           <Form.Item
             label="Type"
-            name="type"
-            rules={[{ required: true, message: "Please enter type" }]}
+            name="Type"
+            rules={[{ required: true, message: "Please select type" }]}
           >
-            <Input />
+            <Select placeholder="Select a type">
+              <Option value="VIP Guests">VIP Guests</Option>
+              <Option value="Speakers">Speakers</Option>
+              <Option value="Organizers">Organizers</Option>
+              <Option value="Participants">Participants</Option>
+              <Option value="Press">Press</Option>
+            </Select>
           </Form.Item>
         </Form>
       </Modal>
