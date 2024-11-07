@@ -1,12 +1,15 @@
 import api from "../config/axios";
 
-export const getEvents = async () => {
-  const response = await api.get("/api/event", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    },
-  });
-  return response.data.$values;
+export const getEvents = async (pageNumber, pageSize) => {
+  const response = await api.get(
+    `/api/event?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+  return response.data;
 };
 
 export const createEvent = async (eventData) => {

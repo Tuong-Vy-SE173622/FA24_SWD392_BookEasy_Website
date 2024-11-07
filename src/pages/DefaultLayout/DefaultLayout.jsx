@@ -7,6 +7,7 @@ import { FaBell, FaRegBuilding, FaRegStar } from "react-icons/fa";
 import { IoSearch, IoSettingsOutline } from "react-icons/io5";
 import { Avatar, Badge } from "antd";
 import { HiOutlineUserGroup } from "react-icons/hi";
+import { getTokenFromCookie } from "../../services";
 // import { IoIosArrowDropdown } from "react-icons/io";
 // import Sidebar from "../../components/SideBar/Sidebar";
 // import { Outlet } from "react-router-dom";
@@ -32,16 +33,22 @@ function DefaultLayout() {
     },
     { path: "/admin/guests", label: "Guest", icon: <BsPeople /> },
     { path: "/admin/staffs", label: "Staff", icon: <FaRegStar /> },
-    { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
+    // { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
   ];
 
   const currentMenuItem = menuItems.find((item) => item.path === pathname);
-  // const currentMenuItem = menuItems.find((item) =>
-  //   pathname === "/" ? item.path === "/dashboard" : item.path === pathname
-  // );
+
+  // Hàm lấy cookie theo tên
+  const getCookie = (name) => {
+    const matches = document.cookie.match(
+      new RegExp(`(?:^|; )${name}=([^;]*)`)
+    );
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  };
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem("accessToken"); // Kiểm tra xem người dùng có accessToken chưa
+    const isAuthenticated = getTokenFromCookie(); // Kiểm tra xem người dùng có accessToken chưa
+
     if (!isAuthenticated) {
       navigate("/"); // Nếu không, điều hướng tới trang login
     }

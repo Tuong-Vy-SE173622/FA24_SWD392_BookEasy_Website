@@ -4,6 +4,7 @@
   height: 100vh;
 
   display: flex;
+  overflow-x: hidden;
   /* height: 100vh; */
 }
 .sidebar-wrapper {
@@ -85,9 +86,12 @@
 .main-wrapper {
   background-color: white;
   width: calc(100vw - 220px);
+  min-height: 100%;
+  height: max-content;
   border-radius: 20px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  /* padding-bottom: 20px; */
 
   color: black;
   /* margin-right: -10px; */
@@ -227,4 +231,5 @@
   display: flex;
   justify-content: center;
   /* padding: 5px 20px; */
+  /* overflow-x: hidden; */
 }

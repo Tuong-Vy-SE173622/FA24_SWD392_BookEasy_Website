@@ -1,9 +1,11 @@
 import api from "../config/axios";
 
-export const getOrganization = async () => {
+export const getOrganization = async (pageNumber, pageSize) => {
   try {
-    const res = await api.get("/api/organization");
-    return res.data.$values;
+    const res = await api.get(
+      `/api/organization?pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
+    return res.data;
   } catch (err) {
     console.error("Error during get Organization: ", err);
     throw err;
@@ -28,7 +30,7 @@ export const createOrganization = async (organizationData) => {
 export const updateOrganization = async (organizationData) => {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await api.put("/api/organization", organizationData, {
+    const res = await api.put(`/api/organization`, organizationData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,36 +1,48 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import { Button, Form, Input, message } from "antd"; // Import message từ antd
+import { Button, Checkbox, Form, Input, message } from "antd"; // Import message từ antd
 import { login } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { saveTokenToCookie } from "../../services";
 
 function LoginPage() {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async (values) => {
     // Thay đổi để nhận giá trị từ form
     try {
       const data = await login(userName, password);
       // Xử lý khi đăng nhập thành công (ví dụ: lưu token hoặc chuyển trang)
-      localStorage.setItem("accessToken", data.verificationToken);
-      localStorage.setItem("refreshToken", data.resetToken);
+      // localStorage.setItem("accessToken", data.verificationToken);
+      // localStorage.setItem("refreshToken", data.resetToken);
+
+      saveTokenToCookie(data.verificationToken);
+
       localStorage.setItem("userId", data.userId);
       localStorage.setItem("username", data.username);
-      localStorage.setItem("email", data.email);
+      // localStorage.setItem("email", data.email);
       localStorage.setItem("role", data.roleName);
       message.success("Login successful!");
+      if (rememberMe) {
+        localStorage.setItem(
+          "rememberMe",
+          JSON.stringify({ userName, password })
+        );
+      } else {
+        localStorage.removeItem("rememberMe");
+      }
       if (data.roleName == "admin") {
         navigate("/admin/dashboard");
-      } else {
-        navigate("/user");
       }
 
       console.log("Login successful", data);
     } catch (error) {
-      setErrorMessage("Login failed. Please check your credentials."); // Thiết lập thông báo lỗi
+      // setErrorMessage("Login failed. Please check your credentials."); // Thiết lập thông báo lỗi
       message.error("Login failed. Please check your credentials."); // Hiện popup thông báo lỗi
     }
   };
@@ -70,15 +82,25 @@ function LoginPage() {
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input
-              type="password"
+            <Input.Password
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // Cập nhật password
-              autoComplete="current-password" // Thêm thuộc tính autocomplete
+              onChange={(e) => setPassword(e.target.value)}
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              autoComplete="current-password"
             />
           </Form.Item>
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}{" "}
+          <Form.Item>
+            <Checkbox
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            >
+              Remember Me
+            </Checkbox>
+          </Form.Item>
+          {/* {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}{" "} */}
           {/* Hiển thị lỗi nếu có */}
           <Form.Item>
             <Button

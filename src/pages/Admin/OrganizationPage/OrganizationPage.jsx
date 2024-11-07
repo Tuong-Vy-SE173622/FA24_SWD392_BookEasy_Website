@@ -15,7 +15,9 @@ const OrganizationPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingOrg, setEditingOrg] = useState(null);
   const [form] = Form.useForm();
-  const pageSize = 5;
+  const pageSize = 3;
+  const [current, setCurrent] = useState(1);
+  const [totalOrganization, setTotalOrganization] = useState();
 
   const openModal = (record = null) => {
     setEditingOrg(record);
@@ -65,11 +67,27 @@ const OrganizationPage = () => {
 
   const columns = [
     // { title: "ID", dataIndex: "organizationID", key: "organizationID" },
-    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Name", dataIndex: "name", key: "name", width: "12%" },
     { title: "Email", dataIndex: "email", key: "email" },
-    { title: "Phone", dataIndex: "phoneNumber", key: "phoneNumber" },
-    { title: "Address", dataIndex: "address", key: "address" },
-    { title: "Description", dataIndex: "description", key: "description" },
+    {
+      title: "Phone",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
+      width: "14%",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "18%",
+      render: (text) => <div className="line-clamp-2">{text}</div>,
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+      render: (text) => <div className="line-clamp-2">{text}</div>,
+    },
     {
       title: "Established Date",
       dataIndex: "establishedDate",
@@ -108,20 +126,21 @@ const OrganizationPage = () => {
     },
   ];
 
-  const fetchOrganization = async () => {
+  const fetchOrganization = async (pageNumber) => {
     try {
-      const data = await getOrganization();
-      console.log("Organization", data);
+      const data = await getOrganization(pageNumber, pageSize);
+      console.log("Organization", data.totalCount);
 
-      setOrganizations(data);
+      setOrganizations(data.items.$values);
+      setTotalOrganization(data.totalCount);
     } catch (err) {
       console.error("Failed to fetch Organization data", err);
     }
   };
 
   useEffect(() => {
-    fetchOrganization();
-  }, [organizations]);
+    fetchOrganization(current);
+  }, [current]);
 
   return (
     <div className="admin-page-container">
@@ -140,9 +159,12 @@ const OrganizationPage = () => {
           columns={columns}
           rowKey="organizationID"
           pagination={{
+            total: totalOrganization,
             pageSize: pageSize,
+            current: current,
+            onChange: (page) => setCurrent(page),
           }}
-          style={{ width: 1100 }}
+          style={{ width: 1080 }}
           // scroll={{ y: 250 }}
           className="custom-table"
         />
