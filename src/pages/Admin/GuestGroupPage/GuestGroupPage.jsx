@@ -8,16 +8,20 @@ import {
   updateGuestGroup,
 } from "../../../services/GuestGroupService";
 import { getOrganization } from "../../../services/OrganizationService";
+import { getEvents } from "../../../services/EventService";
 
 const { Option } = Select;
 
 const GroupGuestPage = () => {
   const [guestGroups, setGuestGroups] = useState([]);
   const [organizations, setOrganizations] = useState([]);
+  const [event, setEvent] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingGroup, setEditingGroup] = useState(null);
   const [form] = Form.useForm();
-  const pageSize = 5;
+  const pageSize = 3;
+  const [current, setCurrent] = useState(1);
+  const [totalGroup, setTotalGroup] = useState();
 
   const openModal = (record = null) => {
     setEditingGroup(record);
@@ -25,6 +29,8 @@ const GroupGuestPage = () => {
     form.setFieldsValue({
       ...record,
       organizationID: record ? record.organizationID : undefined,
+      eventID: record ? record.eventID : undefined, // Đảm bảo truyền eventID vào form nếu có
+      Type: record ? record.type : undefined, //
     });
   };
 
@@ -66,14 +72,15 @@ const GroupGuestPage = () => {
   };
 
   const columns = [
-    { title: "Group Name", dataIndex: "name", key: "name" },
+    { title: "Group Name", dataIndex: "name", key: "name", width: "23%" },
     {
-      title: "Organization ID",
-      dataIndex: "organizationID",
-      key: "organizationID",
+      title: "Organization",
+      dataIndex: "organizationName",
+      key: "organizationName",
+      width: "22%",
     },
-    { title: "Event ID", dataIndex: "eventID", key: "eventID" },
-    { title: "Type", dataIndex: "type", key: "type" },
+    { title: "Event", dataIndex: "eventName", key: "eventName", width: "22%" },
+    { title: "Type", dataIndex: "type", key: "type", width: "20%" },
     {
       title: "Actions",
       key: "actions",
@@ -94,10 +101,11 @@ const GroupGuestPage = () => {
     },
   ];
 
-  const fetchGuestGroups = async () => {
+  const fetchGuestGroups = async (pageNumber) => {
     try {
-      const data = await getGuestGroups();
-      setGuestGroups(Array.isArray(data) ? data : []); // Chỉ set nếu data là mảng
+      const data = await getGuestGroups(pageNumber, pageSize);
+      setGuestGroups(data.items.$values);
+      setTotalGroup(data.totalCount);
     } catch (err) {
       console.error("Failed to fetch guest group data", err);
       setGuestGroups([]); // Đặt guestGroups thành mảng rỗng nếu lỗi
@@ -106,17 +114,29 @@ const GroupGuestPage = () => {
 
   const fetchOrganizations = async () => {
     try {
-      const data = await getOrganization();
-      setOrganizations(data);
+      const data = await getOrganization(1, 100);
+      setOrganizations(data.items.$values || []);
     } catch (err) {
       console.error("Failed to fetch organization data", err);
     }
   };
 
+  const fetchEvents = async () => {
+    try {
+      const data = await getEvents(1, 100);
+      setEvent(data.items.$values || []);
+      // setTotalEvent(data.totalCount);
+    } catch (err) {
+      console.error("Failed to fetch event data", err);
+      setEvent([]);
+    }
+  };
+
   useEffect(() => {
-    fetchGuestGroups();
+    fetchGuestGroups(current);
     fetchOrganizations();
-  }, []);
+    fetchEvents();
+  }, [current, guestGroups]);
 
   return (
     <div className="admin-page-container">
@@ -134,7 +154,12 @@ const GroupGuestPage = () => {
           dataSource={guestGroups}
           columns={columns}
           rowKey="guestGroupID"
-          pagination={{ pageSize: pageSize }}
+          pagination={{
+            total: totalGroup,
+            pageSize: pageSize,
+            current: current,
+            onChange: (page) => setCurrent(page),
+          }}
           style={{ width: 1080 }}
           className="custom-table"
         />
@@ -171,11 +196,17 @@ const GroupGuestPage = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            label="Event ID"
+            label="Event"
             name="eventID"
             rules={[{ required: true, message: "Please enter event ID" }]}
           >
-            <Input type="number" />
+            <Select placeholder="Select an organization">
+              {event.map((event) => (
+                <Option key={event.eventID} value={event.eventID}>
+                  {event.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item
             label="Type"
@@ -183,11 +214,12 @@ const GroupGuestPage = () => {
             rules={[{ required: true, message: "Please select type" }]}
           >
             <Select placeholder="Select a type">
-              <Option value="VIP Guests">VIP Guests</Option>
-              <Option value="Speakers">Speakers</Option>
-              <Option value="Organizers">Organizers</Option>
-              <Option value="Participants">Participants</Option>
-              <Option value="Press">Press</Option>
+              <Option value="VIP">VIP</Option>
+              <Option value="Diễn giả">Diễn giả</Option>
+              <Option value="Nhà tài trợ">Nhà tài trợ</Option>
+              <Option value="Truyền thông">Truyền thông</Option>
+              <Option value="Người tham dự">Người tham dự</Option>
+              <Option value="Nghệ sĩ biểu diễn">Nghệ sĩ biểu diễn</Option>
             </Select>
           </Form.Item>
         </Form>

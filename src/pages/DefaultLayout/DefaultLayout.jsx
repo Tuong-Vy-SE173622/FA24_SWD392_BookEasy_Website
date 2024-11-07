@@ -33,7 +33,7 @@ function DefaultLayout() {
     },
     { path: "/admin/guests", label: "Guest", icon: <BsPeople /> },
     { path: "/admin/staffs", label: "Staff", icon: <FaRegStar /> },
-    // { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
+    { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
   ];
 
   const currentMenuItem = menuItems.find((item) => item.path === pathname);

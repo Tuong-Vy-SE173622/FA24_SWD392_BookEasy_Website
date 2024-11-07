@@ -1,12 +1,15 @@
 import api from "../config/axios";
 
-export const getGuestGroups = async () => {
-  const response = await api.get("/api/guestgroup", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    },
-  });
-  return response.data.$values;
+export const getGuestGroups = async (pageNumber, pageSize) => {
+  const response = await api.get(
+    `/api/guestgroup?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+  return response.data;
 };
 
 export const createGuestGroup = async (guestGroupData) => {
