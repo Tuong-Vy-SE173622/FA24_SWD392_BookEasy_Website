@@ -160,7 +160,7 @@ const GroupGuestPage = () => {
             current: current,
             onChange: (page) => setCurrent(page),
           }}
-          style={{ width: 1080 }}
+          style={{ width: 1200 }}
           className="custom-table"
         />
       </div>

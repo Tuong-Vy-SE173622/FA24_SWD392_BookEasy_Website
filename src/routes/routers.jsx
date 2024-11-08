@@ -4,11 +4,12 @@ import DefaultLayout from "../pages/DefaultLayout/DefaultLayout";
 import Dashboard from "../pages/Admin/Dashboard/Dashboard";
 import EventPage from "../pages/Admin/EventPage/EventPage";
 import GuestPage from "../pages/Admin/GuestPage/GuestPage";
-import StaffPage from "../pages/Admin/StaffPage/StaffPage";
+// import StaffPage from "../pages/Admin/StaffPage/StaffPage";
 import SettingPage from "../pages/Admin/SettingPage/SettingPage";
 import OrganizationPage from "../pages/Admin/OrganizationPage/OrganizationPage";
 import Home from "../pages/Staff/Home/Home";
 import GuestGroupPage from "../pages/Admin/GuestGroupPage/GuestGroupPage";
+import AccountPage from "../pages/Admin/AccountPage/AccountPage";
 
 export const router = createBrowserRouter([
   {
@@ -44,8 +45,8 @@ export const router = createBrowserRouter([
         element: <GuestGroupPage />,
       },
       {
-        path: "staffs",
-        element: <StaffPage />,
+        path: "accounts",
+        element: <AccountPage />,
       },
       {
         path: "organization",

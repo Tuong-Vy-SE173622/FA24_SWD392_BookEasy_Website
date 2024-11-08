@@ -164,7 +164,7 @@ const OrganizationPage = () => {
             current: current,
             onChange: (page) => setCurrent(page),
           }}
-          style={{ width: 1080 }}
+          style={{ width: 1200 }}
           // scroll={{ y: 250 }}
           className="custom-table"
         />

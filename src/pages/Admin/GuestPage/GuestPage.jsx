@@ -360,7 +360,7 @@ const GuestPage = () => {
           columns={columns}
           rowKey="guestID"
           pagination={{ pageSize: pageSize }}
-          style={{ width: 1100 }}
+          style={{ width: 1200 }}
           className="custom-table"
         />
       </div>

@@ -32,19 +32,11 @@ function DefaultLayout() {
       icon: <HiOutlineUserGroup />,
     },
     { path: "/admin/guests", label: "Guest", icon: <BsPeople /> },
-    { path: "/admin/staffs", label: "Staff", icon: <FaRegStar /> },
+    { path: "/admin/accounts", label: "Account", icon: <FaRegStar /> },
     { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
   ];
 
   const currentMenuItem = menuItems.find((item) => item.path === pathname);
-
-  // Hàm lấy cookie theo tên
-  const getCookie = (name) => {
-    const matches = document.cookie.match(
-      new RegExp(`(?:^|; )${name}=([^;]*)`)
-    );
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  };
 
   useEffect(() => {
     const isAuthenticated = getTokenFromCookie(); // Kiểm tra xem người dùng có accessToken chưa

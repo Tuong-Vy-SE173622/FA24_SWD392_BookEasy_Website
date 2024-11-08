@@ -14,3 +14,8 @@ export const login = async (userName, password) => {
     throw err;
   }
 };
+
+export const getAllRole = async () => {
+  const res = await api.get("/api/role/get-all");
+  return res.data;
+};
