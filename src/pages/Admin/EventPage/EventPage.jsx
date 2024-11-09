@@ -25,7 +25,7 @@ const EventPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
   const [form] = Form.useForm();
-  const pageSize = 3;
+  const pageSize = 4;
   const [current, setCurrent] = useState(1);
   const [totalEvent, setTotalEvent] = useState();
 
@@ -80,7 +80,7 @@ const EventPage = () => {
   };
 
   const columns = [
-    { title: "Event Name", dataIndex: "name", key: "name", width: 150 },
+    { title: "Event Name", dataIndex: "name", key: "name", width: 180 },
     {
       title: "Organization Name",
       dataIndex: "organizationName",
@@ -114,7 +114,7 @@ const EventPage = () => {
       render: (text) => new Date(text).toLocaleString("vi-VN"),
     },
     { title: "Capacity", dataIndex: "capacity", key: "capacity" },
-    { title: "Status", dataIndex: "status", key: "status", width: 70 },
+    { title: "Status", dataIndex: "status", key: "status", width: 120 },
     {
       title: "Actions",
       key: "actions",

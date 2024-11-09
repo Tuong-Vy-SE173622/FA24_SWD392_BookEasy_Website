@@ -15,7 +15,7 @@ const OrganizationPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingOrg, setEditingOrg] = useState(null);
   const [form] = Form.useForm();
-  const pageSize = 3;
+  const pageSize = 5;
   const [current, setCurrent] = useState(1);
   const [totalOrganization, setTotalOrganization] = useState();
 
@@ -67,13 +67,13 @@ const OrganizationPage = () => {
 
   const columns = [
     // { title: "ID", dataIndex: "organizationID", key: "organizationID" },
-    { title: "Name", dataIndex: "name", key: "name", width: "12%" },
+    { title: "Name", dataIndex: "name", key: "name", width: "20%" },
     { title: "Email", dataIndex: "email", key: "email" },
     {
       title: "Phone",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
-      width: "14%",
+      width: "10%",
     },
     {
       title: "Address",

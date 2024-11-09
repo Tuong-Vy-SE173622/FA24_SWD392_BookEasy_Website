@@ -47,6 +47,12 @@ function LoginPage() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    // Chuyển hướng đến link đăng nhập Google
+    window.location.href =
+      "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/login-google";
+  };
+
   return (
     <div className="login-container">
       <span className="circle-login-page" />
@@ -116,9 +122,229 @@ function LoginPage() {
             </Button>
           </Form.Item>
         </Form>
+        <p style={{ margin: 0, marginTop: -10 }}>Or</p>
+        <button className="btn-login-google" onClick={handleGoogleLogin}>
+          <img src="/google_icon.png" alt="google logo" />
+          <p>Login with Google</p>
+        </button>
       </div>
     </div>
   );
 }
 
 export default LoginPage;
+
+// import React, { useEffect } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import { Button, message } from "antd";
+// import { saveTokenToCookie } from "../../services"; // Hàm lưu token vào cookie
+
+// function LoginPage() {
+//   const navigate = useNavigate();
+
+//   // Hàm xử lý đăng nhập Google
+//   const handleGoogleLogin = () => {
+//     window.location.href =
+//       "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/login-google";
+//   };
+
+//   // const navigate = useNavigate();
+
+//   useEffect(() => {
+//     // Kiểm tra nếu URL hiện tại là google-response
+//     if (
+//       window.location.href ===
+//       "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/google-response"
+//     ) {
+//       // Chuyển hướng về trang đăng nhập
+//       navigate("/login");
+//     }
+//   }, [navigate]);
+
+//   // Hàm lấy dữ liệu từ `google-response`
+//   const fetchGoogleResponse = async () => {
+//     try {
+//       const response = await axios.get(
+//         "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/google-response"
+//       );
+
+//       const data = response.data;
+//       if (data?.verificationToken) {
+//         saveTokenToCookie(data.verificationToken);
+//         localStorage.setItem("userId", data.userId);
+//         localStorage.setItem("username", data.username);
+//         localStorage.setItem("role", data.roleName);
+
+//         message.success("Đăng nhập Google thành công!");
+//         navigate("/admin/dashboard");
+//       } else {
+//         message.error("Đăng nhập thất bại. Vui lòng thử lại.");
+//         navigate("/login");
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       message.error("Đăng nhập thất bại. Vui lòng thử lại.");
+//       navigate("/login");
+//     }
+//   };
+
+//   // Kiểm tra trạng thái đăng nhập Google
+//   useEffect(() => {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     if (urlParams.get("status") === "success") {
+//       fetchGoogleResponse(); // Gọi hàm lấy dữ liệu khi đăng nhập thành công
+//     }
+//   }, []);
+
+//   return (
+//     <div>
+//       <Button type="primary" onClick={handleGoogleLogin}>
+//         Đăng nhập với Google
+//       </Button>
+//     </div>
+//   );
+// }
+
+// export default LoginPage;
+
+// import React, { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { Button, message } from "antd";
+// import { saveTokenToCookie } from "../../services"; // Hàm lưu token vào cookie
+
+// function LoginPage() {
+//   const navigate = useNavigate();
+
+//   // Hàm xử lý đăng nhập Google
+//   const handleGoogleLogin = () => {
+//     window.location.href =
+//       "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/login-google";
+//   };
+
+//   // Kiểm tra nếu URL hiện tại là `google-response`
+//   useEffect(() => {
+//     const currentUrl = window.location.href;
+//     console.log("currentUrl:", currentUrl); // In ra URL để kiểm tra
+
+//     if (currentUrl.includes("google-response")) {
+//       // Chuyển hướng về trang http://localhost:4001/
+//       // Sử dụng window.location.replace để thay thế trang hiện tại
+//       window.location.replace("http://localhost:4001/");
+//     }
+//   }, []);
+
+//   // Hàm lấy dữ liệu từ `google-response`
+//   const fetchGoogleResponse = async () => {
+//     try {
+//       const response = await axios.get(
+//         "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/google-response"
+//       );
+
+//       const data = response.data;
+//       if (data?.verificationToken) {
+//         saveTokenToCookie(data.verificationToken);
+//         localStorage.setItem("userId", data.userId);
+//         localStorage.setItem("username", data.username);
+//         localStorage.setItem("role", data.roleName);
+
+//         message.success("Đăng nhập Google thành công!");
+//         navigate("/admin/dashboard");
+//       } else {
+//         message.error("Đăng nhập thất bại. Vui lòng thử lại.");
+//         navigate("/login");
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       message.error("Đăng nhập thất bại. Vui lòng thử lại.");
+//       navigate("/login");
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <Button type="primary" onClick={handleGoogleLogin}>
+//         Đăng nhập với Google
+//       </Button>
+//     </div>
+//   );
+// }
+
+// export default LoginPage;
+
+// import React, { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import { Button, message } from "antd";
+// import { saveTokenToCookie } from "../../services"; // Hàm lưu token vào cookie
+
+// function LoginPage() {
+//   const navigate = useNavigate();
+
+//   // Hàm xử lý đăng nhập Google
+//   const handleGoogleLogin = () => {
+//     window.location.href =
+//       "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/login-google";
+//   };
+
+//   // Hàm lấy dữ liệu từ `google-response`
+//   const fetchGoogleResponse = async () => {
+//     try {
+//       const response = await axios.get(
+//         "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net/api/authenticate/google-response"
+//       );
+
+//       const data = response.data;
+//       if (data?.verificationToken) {
+//         saveTokenToCookie(data.verificationToken);
+//         localStorage.setItem("userId", data.userId);
+//         localStorage.setItem("username", data.username);
+//         localStorage.setItem("role", data.roleName);
+
+//         message.success("Đăng nhập Google thành công!");
+//         navigate("/admin/dashboard");
+//       } else {
+//         message.error("Đăng nhập thất bại. Vui lòng thử lại.");
+//         navigate("/login");
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       message.error("Đăng nhập thất bại. Vui lòng thử lại.");
+//       navigate("/login");
+//     }
+//   };
+
+//   // Kiểm tra trạng thái đăng nhập Google và điều hướng nếu URL chứa google-response
+//   useEffect(() => {
+//     const currentUrl = window.location.href;
+
+//     // Log để kiểm tra URL hiện tại từ phía frontend
+//     console.log("Frontend currentUrl:", currentUrl);
+
+//     // Kiểm tra nếu URL hiện tại chứa 'google-response' và không phải là trang login
+//     if (
+//       currentUrl.includes("google-response") &&
+//       !currentUrl.includes("login")
+//     ) {
+//       // Gọi API google-response và lấy dữ liệu
+//       fetchGoogleResponse();
+//     } else if (
+//       currentUrl.includes("google-response") &&
+//       currentUrl.includes("login")
+//     ) {
+//       // Điều hướng về trang login nếu không phải trang google-response
+//       console.log("Redirecting to login...");
+//       window.location.href = "http://localhost:4001/";
+//     }
+//   }, []);
+
+//   return (
+//     <div>
+//       <Button type="primary" onClick={handleGoogleLogin}>
+//         Đăng nhập với Google
+//       </Button>
+//     </div>
+//   );
+// }
+
+// export default LoginPage;

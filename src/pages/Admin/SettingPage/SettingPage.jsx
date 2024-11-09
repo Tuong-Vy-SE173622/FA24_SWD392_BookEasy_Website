@@ -128,10 +128,66 @@
 
 // export default SettingPage;
 
-import React from "react";
+// import React from "react";
+
+// function SettingPage() {
+//   return <div>SettingPage</div>;
+// }
+
+// export default SettingPage;
+
+import React, { useState } from "react";
+import axios from "axios";
 
 function SettingPage() {
-  return <div>SettingPage</div>;
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+
+  // Xử lý khi người dùng chọn file ảnh
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
+  // Xử lý tải ảnh lên Sufy
+  const handleUpload = async () => {
+    const formData = new FormData();
+    formData.append("file", image);
+
+    try {
+      const response = await axios.post(
+        "https://idox90e.sufydely.com/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setImageUrl(response.data.url); // URL trả về từ Sufy sau khi ảnh đã được lưu trữ
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  return (
+    <div>
+      <input type="file" onChange={handleImageChange} />
+      <button onClick={handleUpload}>Upload</button>
+      {imageUrl && (
+        <div>
+          <p>Image URL:</p>
+          <a href={imageUrl} target="_blank" rel="noopener noreferrer">
+            {imageUrl}
+          </a>
+          <img
+            src={imageUrl}
+            alt="Uploaded"
+            style={{ width: "100px", height: "auto" }}
+          />
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default SettingPage;

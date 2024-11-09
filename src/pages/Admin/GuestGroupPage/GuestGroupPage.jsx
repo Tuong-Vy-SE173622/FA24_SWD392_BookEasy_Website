@@ -19,7 +19,7 @@ const GroupGuestPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingGroup, setEditingGroup] = useState(null);
   const [form] = Form.useForm();
-  const pageSize = 3;
+  const pageSize = 5;
   const [current, setCurrent] = useState(1);
   const [totalGroup, setTotalGroup] = useState();
 
@@ -136,7 +136,7 @@ const GroupGuestPage = () => {
     fetchGuestGroups(current);
     fetchOrganizations();
     fetchEvents();
-  }, [current, guestGroups]);
+  }, [current]);
 
   return (
     <div className="admin-page-container">
