@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://eventcheckinmanagement-h7bggygec8esg5cd.southeastasia-01.azurewebsites.net",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
