@@ -8,6 +8,7 @@ import {
   getOrganization,
   updateOrganization,
 } from "../../../services/OrganizationService";
+import moment from "moment";
 
 const OrganizationPage = () => {
   const [organizations, setOrganizations] = useState([]);
@@ -44,6 +45,12 @@ const OrganizationPage = () => {
   const handleSave = () => {
     form.validateFields().then(async (values) => {
       try {
+        if (values.establishedDate) {
+          values.establishedDate = moment(values.establishedDate).format(
+            "YYYY-MM-DD"
+          );
+        }
+
         if (editingOrg) {
           // Gọi API cập nhật tổ chức
           await updateOrganization({ ...editingOrg, ...values });
@@ -73,7 +80,7 @@ const OrganizationPage = () => {
       title: "Phone",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
-      width: "10%",
+      width: "1%",
     },
     {
       title: "Address",
@@ -129,7 +136,7 @@ const OrganizationPage = () => {
   const fetchOrganization = async (pageNumber) => {
     try {
       const data = await getOrganization(pageNumber, pageSize);
-      console.log("Organization", data.totalCount);
+      // console.log("Organization", data.totalCount);
 
       setOrganizations(data.items.$values);
       setTotalOrganization(data.totalCount);

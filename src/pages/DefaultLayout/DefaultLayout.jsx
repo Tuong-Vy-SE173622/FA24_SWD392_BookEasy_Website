@@ -19,7 +19,7 @@ function DefaultLayout() {
   const username = localStorage.getItem("username");
 
   const menuItems = [
-    { path: "/admin/dashboard", label: "Dashboard", icon: <RiDashboardFill /> },
+    // { path: "/admin/dashboard", label: "Dashboard", icon: <RiDashboardFill /> },
     {
       path: "/admin/organization",
       label: "Organizations",
@@ -33,7 +33,7 @@ function DefaultLayout() {
     },
     { path: "/admin/guests", label: "Guest", icon: <BsPeople /> },
     { path: "/admin/accounts", label: "Account", icon: <FaRegStar /> },
-    { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
+    // { path: "/admin/setting", label: "Setting", icon: <IoSettingsOutline /> },
   ];
 
   const currentMenuItem = menuItems.find((item) => item.path === pathname);

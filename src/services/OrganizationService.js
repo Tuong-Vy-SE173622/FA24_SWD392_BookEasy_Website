@@ -18,6 +18,7 @@ export const createOrganization = async (organizationData) => {
     const res = await api.post("/api/organization", organizationData, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
     return res.data;
